@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import SectionTitle from "../../../../components/SectionTitle/SectionTitle";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import { Swiper, SwiperSlide } from "swiper/react";
-import '@smastrom/react-rating/style.css'
+import "@smastrom/react-rating/style.css";
 
 // Import Swiper styles
 import "swiper/css";
@@ -30,9 +30,13 @@ const Testimonials = () => {
           {reviews.map((review) => (
             <SwiperSlide key={review._id}>
               <div className="flex flex-col items-center m-24">
-              <Rating style={{ maxWidth: 180 }} value={review.rating} readOnly />
-              <p className="my-4">{review.details}</p>
-              <h2 className="text-2xl text-orange-500">{review.name}</h2>
+                <Rating
+                  style={{ maxWidth: 180 }}
+                  value={review.rating}
+                  readOnly
+                />
+                <p className="my-4">{review.details}</p>
+                <h2 className="text-2xl text-orange-500">{review.name}</h2>
               </div>
             </SwiperSlide>
           ))}

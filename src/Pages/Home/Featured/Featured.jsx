@@ -1,10 +1,10 @@
-import SectionTitle from "../../../../components/SectionTitle/SectionTitle"
-import featuredImg from '../../../../assets/home/featured.jpg'
+
+import featuredImg from '../../../assets/home/featured.jpg'
+import SectionTitle from '../../../components/SectionTitle/SectionTitle'
 import './Featured.css'
 
 const Featured = () => {
   return (
-    <div className="bg-black bg-opacity-30">
       <div className=" featured-item bg-fixed p-10 text-white my-20 ">
       <div className="bg-black bg-opacity-30">
       <SectionTitle heading={"Featured Item"} subHeading={"Check it out"}></SectionTitle>
@@ -21,7 +21,6 @@ const Featured = () => {
         </div>
       </div>
       </div>
-    </div>
     </div>
   )
 }
