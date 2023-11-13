@@ -1,6 +1,10 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../provider/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate()
   const navOptions = (
     <>
       <li>
@@ -12,8 +16,21 @@ const Navbar = () => {
       <li>
         <Link to="/order/salad">Order Food</Link>
       </li>
+      <li>
+        <Link to="/secret">Secret</Link>
+      </li>
     </>
   );
+
+  const handleLogout =()=>{
+    logOut()
+    .then(()=>{
+      navigate('/login')
+    })
+    .then(error =>{
+      console.log(error);
+    })
+  }
 
   return (
     <div className="navbar fixed z-10 bg-opacity-30 text-white max-w-screen-xl bg-base-100">
@@ -42,13 +59,33 @@ const Navbar = () => {
             {navOptions}
           </ul>
         </div>
-        <Link to='/' className="btn btn-ghost normal-case text-xl">TSR Restaurant</Link>
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
+          TSR Restaurant
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navOptions}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+      {user ? (
+        <>
+        <span className="mr-2">{user?.displayName}</span>
+          <button onClick={handleLogout} className="btn btn-primary">Log Out</button>
+        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+        <div className="w-10 rounded-full">
+          <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
+        </div>
+      </label>
+        </>
+      ) : (
+        <>
+            <button className="btn btn-warning"><Link to="/login">Login</Link></button>
+            <button className="btn btn-warning ml-5">
+            <Link to="/register">Register</Link>
+            </button>
+          
+        </>
+      )}
       </div>
     </div>
   );
