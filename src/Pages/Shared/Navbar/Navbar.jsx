@@ -25,7 +25,10 @@ const Navbar = () => {
         <Link to="/secret">Secret</Link>
       </li>
       <li>
-        <Link to="/">
+        <Link to="/contact">Contact</Link>
+      </li>
+      <li>
+        <Link to="/dashboard/cart">
           <button className="btn">
           <FaCartArrowDown  className="text-2xl "/>
             <div className="badge badge-secondary">+{cart.length}</div>
