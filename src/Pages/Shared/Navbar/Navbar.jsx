@@ -1,12 +1,17 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
+import { FaCartArrowDown } from "react-icons/fa";
+import useCart from "../../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [cart] = useCart()
+  console.log(cart.data);
+
   const navOptions = (
-    <>
+    <div className="flex justify-center items-center">
       <li>
         <Link to="/">Home</Link>
       </li>
@@ -19,18 +24,27 @@ const Navbar = () => {
       <li>
         <Link to="/secret">Secret</Link>
       </li>
-    </>
+      <li>
+        <Link to="/">
+          <button className="btn">
+          <FaCartArrowDown  className="text-2xl "/>
+            <div className="badge badge-secondary">+{cart.length}</div>
+          </button>
+          
+        </Link>
+      </li>
+    </div>
   );
 
-  const handleLogout =()=>{
+  const handleLogout = () => {
     logOut()
-    .then(()=>{
-      navigate('/login')
-    })
-    .then(error =>{
-      console.log(error);
-    })
-  }
+      .then(() => {
+        navigate("/login");
+      })
+      .then((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="navbar fixed z-10 bg-opacity-30 text-white max-w-screen-xl bg-base-100">
@@ -67,25 +81,28 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navOptions}</ul>
       </div>
       <div className="navbar-end">
-      {user ? (
-        <>
-        <span className="mr-2">{user?.displayName}</span>
-          <button onClick={handleLogout} className="btn btn-primary">Log Out</button>
-        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-        <div className="w-10 rounded-full">
-          <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
-        </div>
-      </label>
-        </>
-      ) : (
-        <>
-            <button className="btn btn-warning"><Link to="/login">Login</Link></button>
-            <button className="btn btn-warning ml-5">
-            <Link to="/register">Register</Link>
+        {user ? (
+          <>
+            <span className="mr-2">{user?.displayName}</span>
+            <button onClick={handleLogout} className="btn btn-primary">
+              Log Out
             </button>
-          
-        </>
-      )}
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img alt="Tailwind CSS Navbar component" src={user?.photoURL} />
+              </div>
+            </label>
+          </>
+        ) : (
+          <>
+            <button className="btn btn-warning">
+              <Link to="/login">Login</Link>
+            </button>
+            <button className="btn btn-warning ml-5">
+              <Link to="/register">Register</Link>
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

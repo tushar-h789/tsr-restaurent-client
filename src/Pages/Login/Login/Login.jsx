@@ -11,7 +11,7 @@ import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 
 const Login = () => {
-  const [disabled, setDisabled] = useState(true);
+  const [setDisabled] = useState(true);
   const { signIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -100,7 +100,7 @@ const Login = () => {
                   name="captcha"
                   placeholder="type the captcha above"
                   className="input input-bordered"
-                  required
+                  
                 />
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
@@ -109,7 +109,8 @@ const Login = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button disabled={disabled} className="btn btn-primary">
+                {/* TODO: disabled true */}
+                <button disabled={false} className="btn btn-primary">
                   Login
                 </button>
               </div>
