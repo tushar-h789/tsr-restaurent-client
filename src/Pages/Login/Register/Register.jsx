@@ -5,21 +5,13 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 
 const Register = () => {
   const { createUser, updateUserProfile, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  // const handleLogin =(event)=>{
-  //     event.preventDefault()
-  //     const form = event.target;
-  //     const name = form.name.value;
-  //     const imageURL = form.imageURL.value;
-  //     const email = form.email.value;
-  //     const password = form.password.value;
-  //     console.log( name, imageURL, email, password);
-
-  // }
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
@@ -32,20 +24,35 @@ const Register = () => {
     createUser(data.email, data.password, data.name, data.photoURL).then(
       (result) => {
         const loggedUser = result.user;
-        console.log(loggedUser);
+        console.log("loggedUser", loggedUser);
         updateUserProfile(data.name, data.photoURL)
           .then(() => {
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "User Created successfully",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            logOut();
-          })
-          .then(() => {
-            navigate("/login");
+            //create user entry in the database
+            const userInfo = {
+              name: data.name,
+              email: data.email,
+            };
+            axiosPublic
+              .post("/users", userInfo)
+              .then((res) => {
+                if (res.data.insertedId) {
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "User Created successfully",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                  setTimeout(() => {
+                    logOut();
+                  }, 1500);
+                }
+              })
+              .then(() => {
+                setTimeout(() => {
+                  navigate("/login");
+                }, 2000);
+              });
           })
           .catch((error) => console.log(error));
       }
@@ -167,6 +174,9 @@ const Register = () => {
                     <Link to="/login">Login</Link>
                   </span>
                 </p>
+                <div>
+                  <SocialLogin></SocialLogin>
+                </div>
               </div>
             </form>
           </div>

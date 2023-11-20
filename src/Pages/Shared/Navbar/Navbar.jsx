@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
   const [cart] = useCart()
-  console.log(cart.data);
+  // console.log(cart.data);
 
   const navOptions = (
     <div className="flex justify-center items-center">

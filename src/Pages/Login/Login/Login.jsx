@@ -5,14 +5,15 @@ import {
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../provider/AuthProvider";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import useAuth from "../../../hooks/useAuth";
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [setDisabled] = useState(true);
-  const { signIn } = useContext(AuthContext);
+  const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,7 +38,7 @@ const Login = () => {
         icon: "success",
         title: "Login Successfully",
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
       });
       navigate(from, { replace: true });
     });
@@ -100,7 +101,6 @@ const Login = () => {
                   name="captcha"
                   placeholder="type the captcha above"
                   className="input input-bordered"
-                  
                 />
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
@@ -114,15 +114,18 @@ const Login = () => {
                   Login
                 </button>
               </div>
-              <div className="text-center my-2">
-                <p>
-                  Are not have an account? Please{" "}
-                  <span className="font-bold text-orange-500">
-                    <Link to="/register">Register</Link>
-                  </span>
-                </p>
-              </div>
             </form>
+            <div className="text-center my-2">
+              <p>
+                Are not have an account? Please{" "}
+                <span className="font-bold text-orange-500">
+                  <Link to="/register">Register</Link>
+                </span>
+              </p>
+              <div className="mb-2">
+                <SocialLogin></SocialLogin>
+              </div>
+            </div>
           </div>
         </div>
       </div>

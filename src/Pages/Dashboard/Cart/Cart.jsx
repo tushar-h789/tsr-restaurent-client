@@ -20,13 +20,13 @@ const Cart = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/carts/${id}`).then((res) => {
-          // console.log(res);
+          console.log(res);
           if (res.data.deletedCount > 0) {
-            refetch()
+            refetch();
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
-              icon: "success"
+              icon: "success",
             });
           }
         });
@@ -76,12 +76,12 @@ const Cart = () => {
                 <td>{item.name}</td>
                 <td>$ {item.price}</td>
                 <th>
-                    <button
-                      onClick={() => handleDelete(item._id)}
-                      className="btn btn-error btn-outline"
-                    >
-                      <MdDelete className="text-3xl text-white" />
-                    </button>
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="btn btn-error btn-outline"
+                  >
+                    <MdDelete className="text-3xl text-white" />
+                  </button>
                 </th>
               </tr>
             ))}
