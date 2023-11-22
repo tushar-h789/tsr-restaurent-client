@@ -17,11 +17,10 @@ import useCart from "../hooks/useCart";
 import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
-  const [cart] = useCart()
+  const [cart] = useCart();
 
   //TODO: get isAdmin value from the database
-  const [isAdmin] = useAdmin()
-
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="flex">
@@ -31,71 +30,77 @@ const Dashboard = () => {
             TSR Restaurant
           </h2>
         </div>
-        
-        {
-          isAdmin 
-          ?
+
+        {isAdmin ? (
           <>
             <ul className="menu gap-y-1 ">
-          <li className="text-xl font-bold text-white">
-            <NavLink to="/dashboard/adminHome">
-              <FaHome /> Admin Home
-            </NavLink>
-          </li>
-          <li className="text-xl font-bold text-white">
-            <NavLink to="/dashboard/addItems">
-              <FaUtensils /> Add Items
-            </NavLink>
-          </li>
-          <li className="text-xl font-bold text-white">
-            <NavLink to="/dashboard/manageBookings">
-              <FaBook /> Manage Bookings
-            </NavLink>
-          </li>
-          
-          <li className="text-xl font-bold text-white">
-            <NavLink to="/dashboard/users">
-              <FaUsers /> All Users
-            </NavLink>
-          </li>
-        </ul>
+              <li className="text-xl font-bold text-white">
+                <NavLink to="/dashboard/adminHome">
+                  <FaHome /> Admin Home
+                </NavLink>
+              </li>
+              <li className="text-xl font-bold text-white">
+                <NavLink to="/dashboard/addItems">
+                  <FaUtensils /> Add Items
+                </NavLink>
+              </li>
+              <li className="text-xl font-bold text-white">
+                <NavLink to="/dashboard/manageItems">
+                  <FaBook /> Manage Items
+                </NavLink>
+              </li>
+              <li className="text-xl font-bold text-white">
+                <NavLink to="/dashboard/manageBookings">
+                  <FaBook /> Manage Bookings
+                </NavLink>
+              </li>
+
+              <li className="text-xl font-bold text-white">
+                <NavLink to="/dashboard/users">
+                  <FaUsers /> All Users
+                </NavLink>
+              </li>
+            </ul>
           </>
-          :
+        ) : (
           <>
             <ul className="menu gap-y-1 ">
-          <li className="text-xl font-bold text-white">
-            <NavLink to="/dashboard/userHome">
-              <FaHome /> User Home
-            </NavLink>
-          </li>
-          <li className="text-xl font-bold text-white">
-            <NavLink to="/dashboard/reservation">
-              <FaCalendar /> Reservation
-            </NavLink>
-          </li>
-          <li className="text-xl font-bold text-white">
-            <NavLink to="/dashboard/paymentHistory">
-              <FaCcAmazonPay /> Payment History
-            </NavLink>
-          </li>
-          <li className="text-xl font-bold text-white">
-            <NavLink to="/dashboard/cart">
-              <FaCartArrowDown /> My Cart <button className="btn btn-square btn-info btn-sm">{cart.length}</button>
-            </NavLink>
-          </li>
-          <li className="text-xl font-bold text-white">
-            <NavLink to="/dashboard/addReview">
-              <FaUserTie /> Add Review
-            </NavLink>
-          </li>
-          <li className="text-xl font-bold text-white">
-            <NavLink to="/dashboard/myBooking">
-              <FaCalendarCheck /> My Booking
-            </NavLink>
-          </li>
-        </ul>
+              <li className="text-xl font-bold text-white">
+                <NavLink to="/dashboard/userHome">
+                  <FaHome /> User Home
+                </NavLink>
+              </li>
+              <li className="text-xl font-bold text-white">
+                <NavLink to="/dashboard/reservation">
+                  <FaCalendar /> Reservation
+                </NavLink>
+              </li>
+              <li className="text-xl font-bold text-white">
+                <NavLink to="/dashboard/paymentHistory">
+                  <FaCcAmazonPay /> Payment History
+                </NavLink>
+              </li>
+              <li className="text-xl font-bold text-white">
+                <NavLink to="/dashboard/cart">
+                  <FaCartArrowDown /> My Cart{" "}
+                  <button className="btn btn-square btn-info btn-sm">
+                    {cart.length}
+                  </button>
+                </NavLink>
+              </li>
+              <li className="text-xl font-bold text-white">
+                <NavLink to="/dashboard/addReview">
+                  <FaUserTie /> Add Review
+                </NavLink>
+              </li>
+              <li className="text-xl font-bold text-white">
+                <NavLink to="/dashboard/myBooking">
+                  <FaCalendarCheck /> My Booking
+                </NavLink>
+              </li>
+            </ul>
           </>
-        }
+        )}
 
         <div className="divider"></div>
 
