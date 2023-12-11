@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../provider/AuthProvider";
 import { FaCartArrowDown } from "react-icons/fa";
 import useCart from "../../../hooks/useCart";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
   const [cart] = useCart()
+  const [isAdmin] = useAdmin()
   // console.log(cart.data);
 
   const navOptions = (
@@ -22,11 +24,22 @@ const Navbar = () => {
         <Link to="/order/salad">Order Food</Link>
       </li>
       <li>
-        <Link to="/secret">Secret</Link>
-      </li>
-      <li>
         <Link to="/contact">Contact</Link>
       </li>
+
+      {
+        user && isAdmin &&
+        <li>
+        <Link to="/dashboard/adminHome">Dashboard</Link>
+      </li>
+      }
+      {
+        user && !isAdmin && 
+        <li>
+        <Link to="/dashboard/userHome">Dashboard</Link>
+      </li>
+      }
+
       <li>
         <Link to="/dashboard/cart">
           <button className="btn">
