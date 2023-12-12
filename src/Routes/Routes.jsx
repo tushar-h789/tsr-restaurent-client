@@ -71,27 +71,31 @@ export const router = createBrowserRouter([
     children: [
       //normal user routes
       {
-        path: 'userHome',
-        element: <UserHome></UserHome>
+        path: "userHome",
+        element: <UserHome></UserHome>,
       },
       {
         path: "cart",
         element: <Cart></Cart>,
       },
       {
-        path: 'payment',
-        element: <Payment></Payment>
+        path: "payment",
+        element: <Payment></Payment>,
       },
       {
-        path: 'paymentHistory',
+        path: "paymentHistory",
         element: <PaymentHistory></PaymentHistory>,
-        // loader: ({params})=>{`http://localhost:5000/payments/${params.id}`}
+        // loader: ({params})=>{`https://tsr-restaurent-server.vercel.app/payments/${params.id}`}
       },
 
       //admin only routes
       {
-        path: 'adminHome',
-        element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+        path: "adminHome",
+        element: (
+          <AdminRoute>
+            <AdminHome></AdminHome>
+          </AdminRoute>
+        ),
       },
       {
         path: "addItems",
@@ -102,13 +106,22 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'manageItems',
-        element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
+        path: "manageItems",
+        element: (
+          <AdminRoute>
+            <ManageItems></ManageItems>
+          </AdminRoute>
+        ),
       },
       {
-        path: 'updateItem/:id',
-        element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
-        loader: ({params})=>fetch(`http://localhost:5000/menu/${params.id}`)
+        path: "updateItem/:id",
+        element: (
+          <AdminRoute>
+            <UpdateItem></UpdateItem>
+          </AdminRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`https://tsr-restaurent-server.vercel.app/menu/${params.id}`),
       },
       {
         path: "users",
